@@ -1,4 +1,4 @@
 # Project exclude paths
 /target/
 /.idea/
-/WokBar.iml
+/WokBar.iml/
