@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -19,16 +20,16 @@ public class User {
 
     @Column
     @Size(min = 3, message = "username must be at least 3 characters")
-//    @NotBlank(message = "the field cannot be empty")
+    @NotBlank(message = "the field cannot be empty")
     private String username;
 
     @Column
-//    @Size(min = 3, max = 15, message = "password must be at least 3 characters")
-//    @NotBlank(message = "the field cannot be empty")
+    @Size(min = 3, max = 15, message = "password must be at least 3 characters")
+    @NotBlank(message = "the field cannot be empty")
     private String password;
 
     @Column(name = "phone_number")
-//    @NotBlank(message = "the field cannot be empty")
+    @NotBlank(message = "the field cannot be empty")
     private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -99,5 +100,18 @@ public class User {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, phoneNumber, roles);
     }
 }
