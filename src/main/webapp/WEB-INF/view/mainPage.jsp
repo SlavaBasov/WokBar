@@ -5,6 +5,6 @@
 </head>
 <body>
 <a href="/registration">Registration</a><br>
-<a href="#">Login</a>
+<a href="#">Login</a><br>
 </body>
 </html>

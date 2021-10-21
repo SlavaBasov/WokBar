@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Wok Bar</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+<!--      <span th:text="#{lang.change}"></span>:-->
+<!--  <select id="locales">-->
+<!--    <option value=""></option>-->
+<!--    <option value="en" th:text="#{language.en}"></option>-->
+<!--    <option value="ru" th:text="#{language.ru}"></option>-->
+<!--  </select>-->
+
+<!--  <button type="button" th:text="en" onclick="window.location.href='http://localhost:8080/?localeData=en'"></button>-->
+<!--  <button type="button" th:text="ru" onclick="window.location.href='http://localhost:8080/?localeData=it'"></button>-->
+
+  <ul>
+    <li>
+      <a href="/?lang=en" th:text="#{language.en}"></a>
+    </li>
+    <li>
+      <a href="/?lang=ru" th:text="#{language.ru}"></a>
+    </li>
+  </ul>
+
+<!--  <div style="text-align: right;padding:5px;margin:5px 0px;background:#ccc;">-->
+<!--    <a th:href="@{/?lang=en}">Login (English)</a>-->
+<!--    &nbsp;|&nbsp;-->
+<!--    <a th:href="@{/?lang=ru}">Login (Russian)</a>-->
+<!--  </div>-->
+
+  <h2 th:text="#{main.welcome}"></h2>
+  <a th:href="@{/registration}">Registration</a><br>
+  <a th:href="@{#}">Login</a>
+</div>
+
+</body>
+</html>

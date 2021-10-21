@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.HashSet;
@@ -35,6 +37,7 @@ public class RegistrationController {
         model.addAttribute("userRegistration", new User());
         return "registration";
     }
+
 
     @PostMapping
     public String addNewUser(@ModelAttribute("userRegistration") @Valid User user
