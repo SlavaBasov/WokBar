@@ -1,6 +1,5 @@
 package com.basovProjects.wokBar.controller;
 
-import com.basovProjects.wokBar.enums.Roles;
 import com.basovProjects.wokBar.model.Role;
 import com.basovProjects.wokBar.model.User;
 import com.basovProjects.wokBar.service.RoleServise;
@@ -42,20 +41,17 @@ public class RegistrationController {
     @PostMapping
     public String addNewUser(@ModelAttribute("userRegistration") @Valid User user
             , BindingResult bindingResult, Model model) {
-        System.out.println("Вошли в registrationProcess");
         if (bindingResult.hasErrors()) {
-            System.out.println("Есть ошибка, отправление на registration.jsp");
             return "registration";
         }
-        System.out.println("Нет ошибки, отправление на hello.jsp");
-        if (userService.findUserByUsername(user.getUsername()) != null) {
-            model.addAttribute("identificationMessage",
-                    "user with the same name already exists");
-            model.addAttribute("user", user);
+//        if (!user.getPassword().equals(user.getPasswordConfirm())){
+//            model.addAttribute("passwordError", "Пароли не совпадают");
+//            return "registration";
+//        }
+        if (!userService.save(user)){
+            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "registration";
         }
-        user.setRoles(new HashSet<>(Collections.singletonList(roleServise.findByName(Roles.USER.toString()))));
-        userService.save(user);
         return "redirect:/";
     }
 }
