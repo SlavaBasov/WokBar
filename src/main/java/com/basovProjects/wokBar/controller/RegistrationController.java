@@ -2,7 +2,7 @@ package com.basovProjects.wokBar.controller;
 
 import com.basovProjects.wokBar.model.Role;
 import com.basovProjects.wokBar.model.User;
-import com.basovProjects.wokBar.service.RoleServise;
+import com.basovProjects.wokBar.service.RoleService;
 import com.basovProjects.wokBar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,21 +12,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.HashSet;
 
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
 
     private final UserService<Long, User> userService;
-    private final RoleServise<Long, Role> roleServise;
+    private final RoleService<Long, Role> roleServise;
 
     @Autowired
-    public RegistrationController(UserService<Long, User> userService, RoleServise<Long, Role> roleServise) {
+    public RegistrationController(UserService<Long, User> userService, RoleService<Long, Role> roleServise) {
         this.userService = userService;
         this.roleServise = roleServise;
     }

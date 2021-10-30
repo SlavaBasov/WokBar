@@ -26,6 +26,12 @@
     <a href="/admin">Admin</a><br>
     <a href="/user">User</a><br>
     <a href="/test">Test</a><br>
+    <br>
+    <img src='<spring:url value="/resources/images/userAvatar.png" />'
+         width="280px" height="280px" class="rounded" alt="не найдено"/>
+    <img src='<spring:url value="/resources/images/chel.png" />'
+         width="280px" height="280px" class="rounded" alt="не найдено"/>
+    <p>Хай</p>
 </div>
 </body>
 </html>
