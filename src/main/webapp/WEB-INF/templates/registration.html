@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html    xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
-    <title>Title</title>
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"-->
-<!--          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">-->
-    <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Registration</title>
 </head>
 <body>
 <div class="container-fluid">
     <h2>Registration</h2>
-    <p>Hello</p>
-    <br>
 
     <form th:action="@{/registration}" method="post" th:object="${userRegistration}">
-        <p>Name:</p>
         <p>Username: <input type="text" th:field="*{username}"/></p>
         <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></p>
 

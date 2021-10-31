@@ -50,6 +50,13 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
+    public User(String username, String password, String phoneNumber, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+    }
+
     public User(String username, String password, String passwordConfirm, String phoneNumber) {
         this.username = username;
         this.password = password;
