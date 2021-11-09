@@ -17,7 +17,6 @@ public class ThymeleafConfig implements WebMvcConfigurer {
         resolver.setCharacterEncoding("UTF-8");
         resolver.setPrefix("/WEB-INF/templates/");
         resolver.setSuffix(".html");
-//        resolver.setTemplateMode("HTML5");
         resolver.setCacheable(false);
         return resolver;
     }

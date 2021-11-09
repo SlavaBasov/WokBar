@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column
-    @Size(min = 3, message = "username must be at least 3 characters")
+    @Size(min = 3, max = 15, message = "username must be at least 3 characters")
     @NotBlank(message = "the field cannot be empty")
     private String username;
 
@@ -32,10 +33,11 @@ public class User implements UserDetails {
     private String password;
 
     @Transient
+    @Size(min = 3, message = "password must be at least 3 characters")
     private String passwordConfirm;
 
     @Column(name = "phone_number")
-    @NotBlank(message = "the field cannot be empty")
+    @Pattern(regexp = "^\\+(375)(29|33|44)\\d{3}\\d{2}\\d{2}", message = "please use the pattern +375XXXXXXXXX")
     private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.EAGER)

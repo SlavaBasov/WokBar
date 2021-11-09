@@ -41,10 +41,10 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-//        if (!user.getPassword().equals(user.getPasswordConfirm())){
-//            model.addAttribute("passwordError", "Пароли не совпадают");
-//            return "registration";
-//        }
+        if (!user.getPassword().equals(user.getPasswordConfirm())){
+            model.addAttribute("passwordError", "Пароли не совпадают");
+            return "registration";
+        }
         if (!userService.save(user)){
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "registration";

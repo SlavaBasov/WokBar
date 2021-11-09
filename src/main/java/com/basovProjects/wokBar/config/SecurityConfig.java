@@ -14,9 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -39,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/registration", "/test").not().fullyAuthenticated()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/info").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -52,14 +49,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/signout")
                 .permitAll() // Allow access to any URL associate to logout()
                 .logoutSuccessUrl("/");
-
     }
+
+
 
     @Override
     public void configure(WebSecurity web) {
         web
                 .ignoring()
-//                .antMatchers("/resources/images/**")
                 .antMatchers("/resources/css/**", "/resources/images/**");
 
     }
@@ -75,9 +72,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     {
         return super.authenticationManagerBean();
     }
-
-
-
-
-
 }

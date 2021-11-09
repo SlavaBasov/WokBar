@@ -16,70 +16,15 @@
 </head>
 <body>
 <div th:insert="~{navigation/header :: header}"></div>
-
 <div class="container-fluid mt-2">
 
-<!--    <p th:if="${#request.userPrincipal.principal.username!= null}" th:text="${#request.userPrincipal.principal.username}">12412124</p>-->
-
   <h2 th:text="#{main.welcome}"></h2>
-  12412142
-  <a th:href="@{/registration}">Registration</a><br>
-  <a th:href="@{#}">Login</a>
-  <div sec:authentication="name"></div>
 
-  <p class="buttonLink">"uttwqwtqtqwqwtqwtqwqwtqwtqwtqwtttttt</p>
+  Name of USER: <span sec:authentication="name"></span>
 
   <div sec:authorize="hasRole('USER')">Text visible to user.</div>
   <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
   <div sec:authorize="isAnonymous()">Аноним</div>
-
-<!--  <img th:src="@{/../../resources/images/photo_2021-10-31_16-59-19.jpg}"><br>-->
-<!--  <img th:src="@{/../../resources/images/userAvatar.png}"><br>-->
-<!--  <img th:src="@{/../../resources/images/chel.png}"><br>-->
-<!--  <img th:src="@{/resources/images/mqdefault.jpg}"><br>-->
-<!--  <img src="/resources/images/бургер.png"><br>-->
-<!--  <img src="/resources/images/userAvatar.png"><br>-->
-  <img src="/resources/images/cat.png" alt="Нет такой"><br>
-  <img src="/resources/images/userAvatar.png" alt="Нет такой"><br>
-
-<!--  &lt;!&ndash;  <div sec:autorize></div>&ndash;&gt;-->
-<!--  &lt;!&ndash;  <div sec:authorize="isAuthenticated()">&ndash;&gt;-->
-<!--  <br>-->
-<!--  Authenticated username:-->
-<!--  <div sec:authentication="name"></div>-->
-<!--  <div sec:authentication="principal"></div>-->
-<!--  <div sec:authentication=""></div>-->
-<!--  qeqweqew-->
-
-  <!--  <div sec:authentication="principal"></div>-->
-  <!--  <div sec:authorize="principal.getAuthorities()"></div>-->
-  <!--    <div sec:authentication="principal"></div>-->
-  <!--    <div sec:authentication="isAnonymous()">Для незарегистрированного</div>-->
-  <!--    <div sec:authentication="isAuthenticated()">Для аунтифицированного</div>-->
-  <!--    <div sec:authentication="isFullyAuthenticated()">Для полностью аунтифицированного</div>-->
-
-  <!--  <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">-->
-  <!--    <div class="col-md-10 col-md-offset-2">-->
-  <!--      <h2>User Has Role Admin</h2>-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  <div class="row" sec:authorize="hasAuthority('ADMIN')">-->
-  <!--    <div class="col-md-10 col-md-offset-2">-->
-  <!--      <h2>User Has Authority Admin</h2>-->
-  <!--    </div>-->
-  <!--  </div>-->
-<!--  <div class="row" th:if="${#request.isUserInRole('ADMIN')}">-->
-<!--    <h4>This will only be displayed if authenticated user has role ROLE_ADMIN.</h4>-->
-<!--  </div>-->
-  <!--  <div class="row" th:if="${#request.isUserInRole('USER')}">-->
-  <!--    <h4>This will only be displayed if authenticated user has role ROLE_USER.</h4>-->
-  <!--  </div>-->
-  Authenticated user roles:
-  <!--    <div sec:authentication="principal.getAuthorities()"></div>-->
-
-  <!--    <div sec:authentication="principal.getUsername()"></div>-->
-  qwdqdq
-  <!--    <div sec:authenticati></div>-->
 
   <div th:insert="~{navigation/footer :: footer}"></div>
 </div>

@@ -18,13 +18,6 @@ import java.util.Locale;
 @Import(value = {ThymeleafConfig.class})
 public class WebConfig implements WebMvcConfigurer {
 
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-////        registry.addResourceHandler("").addResourceLocations("/resources/");
-//        registry.addResourceHandler("/resources/images/**").addResourceLocations("/../webapp/resources/images/**");
-//        registry.addResourceHandler("/resources/css/**").addResourceLocations("/../webapp/resources/css/**");
-//    }
-
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(1);

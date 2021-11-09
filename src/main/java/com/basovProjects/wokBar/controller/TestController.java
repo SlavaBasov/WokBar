@@ -3,10 +3,8 @@ package com.basovProjects.wokBar.controller;
 import com.basovProjects.wokBar.model.Role;
 import com.basovProjects.wokBar.model.User;
 import com.basovProjects.wokBar.repository.UserRepository;
-import com.basovProjects.wokBar.service.UserService;
 import com.basovProjects.wokBar.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -49,7 +46,7 @@ public class TestController {
             , BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "registrationFirst";
         }
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
