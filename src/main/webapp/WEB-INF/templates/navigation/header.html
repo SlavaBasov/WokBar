@@ -18,7 +18,7 @@
 <div th:fragment="header">
     <nav class="navbar navbar-dark bg-dark navbar-expand-md">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}">Wok-Bar</a>
+            <a class="navbar-brand" th:href="@{/}" th:text="#{header.wokBar.title}">Wok-Bar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
                     aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -26,58 +26,55 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/}" th:text="#{header.home.title}">Home</a>
                     </li>
                     <div sec:authorize="hasRole('ADMIN')">
                         <li class="nav-item">
-                            <a class="nav-link active" th:href="@{/admin}">Admin</a>
+                            <a class="nav-link active" th:href="@{/admin}" th:text="#{header.admin.title}">Admin</a>
                         </li>
                     </div>
                     <div sec:authorize="hasRole('USER')">
                         <li class="nav-item">
-                            <a class="nav-link active" th:href="@{/user}">User</a>
+                            <a class="nav-link active" th:href="@{/user}" th:text="#{header.user.title}">User</a>
                         </li>
                     </div>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/info}">Info</a>
+                        <a class="nav-link active" th:href="@{/info}" th:text="#{header.info.title}">Info</a>
                     </li>
                 </ul>
                 <form class="d-flex">
 
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" th:placeholder="#{header.search.title}">
 
                     <div class="dropdown mx-2">
                         <a class="btn btn-secondary dropdown-toggle" href="#" type="button" id="dropdownMenuButton1"
-                           data-bs-toggle="dropdown" aria-expanded="false">
+                           data-bs-toggle="dropdown" aria-expanded="false" th:text="#{header.language.title}">
                             Language
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <!--              <li><a class="dropdown-item" th:text="#{language.en}" onclick="window.location.href='/?lang=en'"></a></li>-->
-                            <!--              <li><a class="dropdown-item" th:text="#{language.ru}" onclick="window.location.href='/?lang=ru'"></a></li>-->
-                            <li><a class="dropdown-item" th:text="#{language.en}" type="button"
-                                   onclick="window.location.href='/?lang=en'"></a></li>
-                            <li><a class="dropdown-item" th:text="#{language.ru}" type="button"
-                                   onclick="window.location.href='/?lang=ru'"></a></li>
+                            <li><a class="dropdown-item" th:text="#{header.language.en}" type="button"
+                                   th:href="${#httpServletRequest.requestURI} + '?lang=en'"></a></li>
+                            <li><a class="dropdown-item" th:text="#{header.language.ru}" type="button"
+                                   th:href="${#httpServletRequest.requestURI} + '?lang=ru'"></a></li>
                         </ul>
                     </div>
 
                     <div sec:authorize="isAnonymous()">
                         <a href="/registration" class="btn btn-outline-light mx-1" role="button"
-                           th:text="#{registration.title}"></a>
+                           th:text="#{header.registration.title}"></a>
                     </div>
                     <div sec:authorize="isAnonymous()">
-                        <a href="/login" class="btn btn-outline-light mx-1" role="button" th:text="#{login.title}"></a>
+                        <a href="/login" class="btn btn-outline-light mx-1" role="button" th:text="#{header.login.title}"></a>
                     </div>
                     <div sec:authorize="isAuthenticated()">
-                        <!--            <a href="/signout" class="btn btn-outline-light text-nowrap" role="button" th:text="#{signOut.title}"></a>-->
                         <div class="dropdown mx-1">
                             <a class="btn btn-success dropdown-toggle" href="#" type="button" id="dropdownMenuButton2"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span>User: </span><span sec:authentication="name"></span>
+                                <span th:text="#{header.user.title} + ': '">User: </span><span sec:authentication="name"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                 <li><a href="/signout" class="dropdown-item btn btn-warning text-nowrap"
-                                       role="button" th:text="#{signOut.title}" style="color: red"></a></li>
+                                       role="button" th:text="#{header.signOut.title}" style="color: red"></a></li>
                             </ul>
                         </div>
 

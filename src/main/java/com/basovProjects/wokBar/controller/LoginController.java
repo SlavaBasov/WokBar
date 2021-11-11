@@ -1,57 +1,36 @@
 package com.basovProjects.wokBar.controller;
 
 import com.basovProjects.wokBar.model.User;
-import com.basovProjects.wokBar.service.UserService;
+import com.basovProjects.wokBar.service.i18n.MessageByLocalService;
+import com.basovProjects.wokBar.service.i18n.MessageByLocalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.WebAttributes;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 @Controller
-//@RequestMapping("/login")
+@RequestMapping("/login")
 public class LoginController{
 
-    private UserService<Long, User> userService;
+    private final MessageByLocalService messageByLocalService;
 
     @Autowired
-    public LoginController(UserService<Long, User> userService) {
-        this.userService = userService;
+    public LoginController(MessageByLocalServiceImpl messageByLocalService) {
+        this.messageByLocalService = messageByLocalService;
     }
 
-    @GetMapping("/login")
-    public String login(Model model){
+    @GetMapping
+    public String login(@RequestParam(value = "error", defaultValue = "false") boolean loginError, Model model){
+        if(loginError){
+            String errorMessage = messageByLocalService.getMessage("login.error");
+            model.addAttribute("errorMessage", errorMessage);
+        }
         model.addAttribute("userLogin", new User());
         return "login";
     }
 
-    @GetMapping("/login?error")
-    public String loginError(Model model, @RequestParam("error") String errorMessage){
-//        model.addAttribute("userLogin", user);
-        errorMessage = "error MEss";
-        model.addAttribute("errorMessage", errorMessage);
-        return "login";
-    }
-
-//    @GetMapping("/login-error")
-//    public String loginError(Model model) {
-//    public String login(HttpServletRequest request, Model model) {
-//        HttpSession session = request.getSession(false);
-//        String errorMessage = null;
-//        if (session != null) {
-//            AuthenticationException ex = (AuthenticationException) session
-//                    .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-//            if (ex != null) {
-//                errorMessage = ex.getMessage();
-//            }
-//        }
-//        model.addAttribute("errorMessage", "errorMessage");
-//        return "login";
-//    }
 
 
 

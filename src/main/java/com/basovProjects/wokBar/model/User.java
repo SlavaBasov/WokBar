@@ -1,5 +1,8 @@
 package com.basovProjects.wokBar.model;
 
+import com.basovProjects.wokBar.service.i18n.MessageByLocalService;
+import com.basovProjects.wokBar.service.i18n.MessageByLocalServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,21 +26,21 @@ public class User implements UserDetails {
     private Long id;
 
     @Column
-    @Size(min = 3, max = 15, message = "username must be at least 3 characters")
-    @NotBlank(message = "the field cannot be empty")
+    @Size(min = 3, max = 15, message = "{registration.error.usernameLength}")
+    @NotBlank(message = "{registration.error.fieldNotBeEmpty}")
     private String username;
 
     @Column
-    @Size(min = 3, message = "password must be at least 3 characters")
-    @NotBlank(message = "the field cannot be empty")
+    @Size(min = 3, message = "{registration.error.passwordLength}")
+    @NotBlank(message = "{registration.error.fieldNotBeEmpty}")
     private String password;
 
     @Transient
-    @Size(min = 3, message = "password must be at least 3 characters")
+    @Size(min = 3, message = "{registration.error.passwordLength}")
     private String passwordConfirm;
 
     @Column(name = "phone_number")
-    @Pattern(regexp = "^\\+(375)(29|33|44)\\d{3}\\d{2}\\d{2}", message = "please use the pattern +375XXXXXXXXX")
+    @Pattern(regexp = "^\\+(375)(29|33|44)\\d{3}\\d{2}\\d{2}", message = "{registration.error.phonePattern}")
     private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.EAGER)
