@@ -1,21 +1,13 @@
 package com.basovProjects.wokBar.model;
 
-import com.basovProjects.wokBar.service.i18n.MessageByLocalService;
-import com.basovProjects.wokBar.service.i18n.MessageByLocalServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -45,6 +37,9 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orderList = new ArrayList<>();
 
     public User() {
     }
@@ -143,6 +138,14 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -152,6 +155,7 @@ public class User implements UserDetails {
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", roles=" + roles +
+                ", orderList=" + orderList +
                 '}';
     }
 
@@ -160,11 +164,11 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(passwordConfirm, user.passwordConfirm) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(roles, user.roles);
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(passwordConfirm, user.passwordConfirm) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(roles, user.roles) && Objects.equals(orderList, user.orderList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, passwordConfirm, phoneNumber, roles);
+        return Objects.hash(id, username, password, passwordConfirm, phoneNumber, roles, orderList);
     }
 }
