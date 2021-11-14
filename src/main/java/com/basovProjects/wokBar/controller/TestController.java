@@ -3,7 +3,7 @@ package com.basovProjects.wokBar.controller;
 import com.basovProjects.wokBar.model.Role;
 import com.basovProjects.wokBar.model.User;
 import com.basovProjects.wokBar.repository.UserRepository;
-import com.basovProjects.wokBar.service.UserServiceImpl;
+import com.basovProjects.wokBar.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

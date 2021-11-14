@@ -1,7 +1,8 @@
-package com.basovProjects.wokBar.service;
+package com.basovProjects.wokBar.service.impl;
 
 import com.basovProjects.wokBar.model.Role;
 import com.basovProjects.wokBar.repository.RoleRepository;
+import com.basovProjects.wokBar.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

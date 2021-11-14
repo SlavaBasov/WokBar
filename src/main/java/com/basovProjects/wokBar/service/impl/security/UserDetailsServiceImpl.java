@@ -1,4 +1,4 @@
-package com.basovProjects.wokBar.service.security;
+package com.basovProjects.wokBar.service.impl.security;
 
 import com.basovProjects.wokBar.model.Role;
 import com.basovProjects.wokBar.model.User;

@@ -1,5 +1,6 @@
-package com.basovProjects.wokBar.service.i18n;
+package com.basovProjects.wokBar.service.impl.i18n;
 
+import com.basovProjects.wokBar.service.MessageByLocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Locale;
 
 @Service
-public class MessageByLocalServiceImpl implements MessageByLocalService{
+public class MessageByLocalServiceImpl implements MessageByLocalService {
 
     @Autowired
     private MessageSource messageSource;

@@ -1,9 +1,10 @@
-package com.basovProjects.wokBar.service;
+package com.basovProjects.wokBar.service.impl;
 
 import com.basovProjects.wokBar.model.Role;
 import com.basovProjects.wokBar.model.User;
 import com.basovProjects.wokBar.repository.RoleRepository;
 import com.basovProjects.wokBar.repository.UserRepository;
+import com.basovProjects.wokBar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
