@@ -40,6 +40,7 @@ public class AdminController {
 
     @GetMapping("/categories")
     public String categories(Model model){
+//        model.addAttribute("categories", categoryService.findAllCategories());
         model.addAttribute("categories", categoryService.findAllCategories());
         return "/admin/categories";
     }

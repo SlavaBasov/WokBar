@@ -17,6 +17,7 @@
 <div class="container-fluid mx-2 m">
     <div class="row">
         <h1>Categories</h1>
+
         <table class="table-bordered">
             <tr>
                 <th>№</th>
@@ -26,6 +27,7 @@
             <tr th:each="category,state : ${categories}">
                 <td th:text="${state.count}"></td>
                 <td th:text="${category.name}"></td>
+<!--                <td th:text="${category.name}"></td>-->
                 <td><a href="/admin" th:href="@{/admin}" role="button" class="btn btn-link" th:text="Edit"></a>
                     <a href="/admin" th:href="@{/admin}" type="button" class="btn btn-link" th:text="Delete"></a>
                     <a href="/admin" th:href="@{/admin}" role="button" class="btn btn-link" th:text="Products"></a>

@@ -32,7 +32,7 @@ import java.util.Properties;
 @EnableJpaRepositories("com.basovProjects.wokBar.repository")
 public class RootConfig {
 
-    private Environment environment;
+    private final Environment environment;
 
     @Autowired
     public RootConfig(Environment environment) {

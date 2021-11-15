@@ -1,6 +1,7 @@
 package com.basovProjects.wokBar.model;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -14,14 +15,13 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    private Map<String, Product> productsByName;
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    private Map<String, Product> productsByName = new HashMap<>();
 
     public Category() {
     }
 
-    public Category(Long id, String name) {
-        this.id = id;
+    public Category(String name) {
         this.name = name;
     }
 
