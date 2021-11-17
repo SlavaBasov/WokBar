@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CategoryTranslateRepository extends JpaRepository<CategoryTranslate, Long> {
-    List<CategoryTranslate> findAllByLanguage(Language language);
+    List<CategoryTranslate> findAllByLanguage_Id(String id);
 }

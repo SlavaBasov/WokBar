@@ -7,22 +7,14 @@ import com.basovProjects.wokBar.repository.CategoryRepository;
 import com.basovProjects.wokBar.repository.CategoryTranslateRepository;
 import com.basovProjects.wokBar.repository.LanguageRepository;
 import com.basovProjects.wokBar.service.CategoryService;
-import org.hibernate.Session;
+import com.mysql.cj.xdevapi.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.jpa.repository.support.EntityManagerBeanDefinitionRegistrarPostProcessor;
-import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.swing.text.html.parser.Entity;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService<Long, Category> {
@@ -37,11 +29,6 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
         this.languageRepository = languageRepository;
         this.categoryTranslateRepository = categoryTranslateRepository;
     }
-
-//    @Autowired
-//    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-//        this.categoryRepository = categoryRepository;
-//    }
 
     @Override
     public boolean save(Category category) {
@@ -63,8 +50,6 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
 
     @Override
     public Category findById(Long id) {
-//        Locale locale = LocaleContextHolder.getLocale();
-//        System.out.println(locale.toString());
         Optional<Category> categoryFromDB = categoryRepository.findById(id);
         return categoryFromDB.orElse(null);
     }
@@ -72,32 +57,78 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
     @Override
     @Transactional
     public List<Category> findAllCategories() {
-        List<Category> categoryList = new ArrayList<>(categoryRepository.findAll());
-
-//
+        List<Category> categoryList = categoryRepository.findAll();
         Locale locale = LocaleContextHolder.getLocale();
         Language language = languageRepository.getById(locale.toString());
-//
+
         if(!language.isDefaultLocal()) {
-            List<CategoryTranslate> categoryTranslateList = new ArrayList<>(categoryTranslateRepository.findAllByLanguage(language));
-            for (Category category : categoryList) {
-                for (CategoryTranslate categoryTranslate : categoryTranslateList) {
-                    if (category.getId().equals(categoryTranslate.getCategory().getId())) {
-                        category.setName(categoryTranslate.getName());
-                    }
+            List<CategoryTranslate> categoryTranslateList = findAllCategoriesByLocale(locale);
+            return getTranslatedAllCategories(categoryList, categoryTranslateList, locale);
+        }
+
+        return categoryList;
+    }
+
+    private List<CategoryTranslate> findAllCategoriesByLocale(Locale locale) {
+        return categoryTranslateRepository.findAllByLanguage_Id(locale.toString());
+    }
+
+    private List<Category> getTranslatedAllCategories(List<Category> categoryList, List<CategoryTranslate> categoryTranslateList, Locale locale){
+
+
+//        List<Category> resultCategoryList = List.copyOf(categoryList);
+//        List<CategoryTranslate> resultCategoryTranslateList = categoryTranslateList.stream().collect(Collectors.toList());
+//        List<CategoryTranslate> resultCategoryTranslateList = List.copyOf(categoryTranslateList);
+        List<Category> resultCategoryList = new ArrayList<>();
+        for (int i = 0; i < categoryList.size(); i++){
+            resultCategoryList.add(new Category());
+        }
+        Collections.copy(resultCategoryList,categoryList);
+
+        List<CategoryTranslate> resultCategoryTranslateList = new ArrayList<>();
+        for (int i = 0; i < categoryTranslateList.size(); i++){
+            resultCategoryTranslateList.add(new CategoryTranslate());
+        }
+        Collections.copy(resultCategoryTranslateList,categoryTranslateList);
+
+        for (Category category : resultCategoryList) {
+            for (CategoryTranslate categoryTranslate : resultCategoryTranslateList) {
+                if (category.getId().equals(categoryTranslate.getCategory().getId())) {
+                    category.setName(categoryTranslate.getName());
                 }
             }
         }
-        return categoryList;
+        return resultCategoryList;
     }
+
+
+
 //    @Override
-//    public List<CategoryTranslate> findCategories() {
-////        Locale locale = LocaleContextHolder.getLocale();
-////        System.out.println("#########################################################################");
-////        System.out.println(locale.toString());
-////        System.out.println("#########################################################################");
+//    public List<Category> findAllCategories() {
+//        List<Category> categoryList = categoryRepository.findAll();
+//
 //        Locale locale = LocaleContextHolder.getLocale();
-//        return categoryTranslateRepository.findAllByLanguage(languageRepository.getById(locale.toString()));
-////        return categoryRepository.findAll();
+//        if(!locale.toString().equals("en")) {
+//            List<CategoryTranslate> categoryTranslateList = findAllCategoriesByLocale();
+//
+//            for (Category category : categoryList) {
+//                for (CategoryTranslate categoryTranslate : categoryTranslateList) {
+//                    if (category.getId().equals(categoryTranslate.getCategory().getId())) {
+//                        category.setName(categoryTranslate.getName());
+//                    }
+//                }
+//            }
+//        }
+//
+//        return categoryList;
 //    }
+//
+//    public List<CategoryTranslate> findAllCategoriesByLocale() {
+//        Locale locale = LocaleContextHolder.getLocale();
+//        List<CategoryTranslate> categoryTranslateList = categoryTranslateRepository.findAllByLanguage_Id(locale.toString());
+//        return categoryTranslateList;
+//    }
+
+
+
 }
