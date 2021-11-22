@@ -1,20 +1,18 @@
 package com.basovProjects.wokBar.service.impl;
 
-import com.basovProjects.wokBar.model.Category;
-import com.basovProjects.wokBar.model.CategoryTranslate;
-import com.basovProjects.wokBar.model.Language;
+import com.basovProjects.wokBar.model.category.Category;
+import com.basovProjects.wokBar.model.category.CategoryTranslate;
 import com.basovProjects.wokBar.repository.CategoryRepository;
 import com.basovProjects.wokBar.repository.CategoryTranslateRepository;
 import com.basovProjects.wokBar.repository.LanguageRepository;
 import com.basovProjects.wokBar.service.CategoryService;
-import com.mysql.cj.xdevapi.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService<Long, Category> {
@@ -22,12 +20,17 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
     private final CategoryRepository categoryRepository;
     private final LanguageRepository languageRepository;
     private final CategoryTranslateRepository categoryTranslateRepository;
+    private final Locale defaultLocale;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository, LanguageRepository languageRepository, CategoryTranslateRepository categoryTranslateRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository,
+                               LanguageRepository languageRepository,
+                               CategoryTranslateRepository categoryTranslateRepository,
+                               @Qualifier("defaultLocale") Locale defaultLocale) {
         this.categoryRepository = categoryRepository;
         this.languageRepository = languageRepository;
         this.categoryTranslateRepository = categoryTranslateRepository;
+        this.defaultLocale = defaultLocale;
     }
 
     @Override
@@ -37,9 +40,14 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
     }
 
     @Override
+    @Transactional
     public boolean update(Category category) {
-        categoryRepository.saveAndFlush(category);
-        return true;
+        Category firstCategory = findById(category.getId());
+        if(firstCategory.getId() != 0L){
+            firstCategory.setName(category.getName());
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -49,85 +57,44 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
     }
 
     @Override
-    public Category findById(Long id) {
-        Optional<Category> categoryFromDB = categoryRepository.findById(id);
-        return categoryFromDB.orElse(null);
+    public Category findByIdWithLocalization(Long id) {
+        Category category = findById(id);
+        Locale locale = LocaleContextHolder.getLocale();
+        if(!locale.toString().equals(defaultLocale.toString())){
+            CategoryTranslate categoryTranslate = categoryTranslateRepository.findByLanguage_IdAndCategory_Id(locale.toString(), id).orElse(new CategoryTranslate());
+            if(category.getId().equals(categoryTranslate.getCategory().getId())){
+                category.setName(categoryTranslate.getName());
+            }
+        }
+         return category;
     }
 
     @Override
-    @Transactional
+    public Category findById(Long id){
+        return categoryRepository.findById(id).orElse(new Category());
+    }
+
+    @Override
     public List<Category> findAllCategories() {
         List<Category> categoryList = categoryRepository.findAll();
         Locale locale = LocaleContextHolder.getLocale();
-        Language language = languageRepository.getById(locale.toString());
 
-        if(!language.isDefaultLocal()) {
-            List<CategoryTranslate> categoryTranslateList = findAllCategoriesByLocale(locale);
-            return getTranslatedAllCategories(categoryList, categoryTranslateList, locale);
+        if(!locale.toString().equals(defaultLocale.toString())) {
+            for (Category category : categoryList) {
+                for (CategoryTranslate categoryTranslate : findAllCategoriesByLocale(locale)) {
+                    if (category.getId().equals(categoryTranslate.getCategory().getId())) {
+                        category.setName(categoryTranslate.getName());
+                    }
+                }
+            }
         }
 
         return categoryList;
     }
 
-    private List<CategoryTranslate> findAllCategoriesByLocale(Locale locale) {
+    public List<CategoryTranslate> findAllCategoriesByLocale(Locale locale) {
         return categoryTranslateRepository.findAllByLanguage_Id(locale.toString());
     }
-
-    private List<Category> getTranslatedAllCategories(List<Category> categoryList, List<CategoryTranslate> categoryTranslateList, Locale locale){
-
-
-//        List<Category> resultCategoryList = List.copyOf(categoryList);
-//        List<CategoryTranslate> resultCategoryTranslateList = categoryTranslateList.stream().collect(Collectors.toList());
-//        List<CategoryTranslate> resultCategoryTranslateList = List.copyOf(categoryTranslateList);
-        List<Category> resultCategoryList = new ArrayList<>();
-        for (int i = 0; i < categoryList.size(); i++){
-            resultCategoryList.add(new Category());
-        }
-        Collections.copy(resultCategoryList,categoryList);
-
-        List<CategoryTranslate> resultCategoryTranslateList = new ArrayList<>();
-        for (int i = 0; i < categoryTranslateList.size(); i++){
-            resultCategoryTranslateList.add(new CategoryTranslate());
-        }
-        Collections.copy(resultCategoryTranslateList,categoryTranslateList);
-
-        for (Category category : resultCategoryList) {
-            for (CategoryTranslate categoryTranslate : resultCategoryTranslateList) {
-                if (category.getId().equals(categoryTranslate.getCategory().getId())) {
-                    category.setName(categoryTranslate.getName());
-                }
-            }
-        }
-        return resultCategoryList;
-    }
-
-
-
-//    @Override
-//    public List<Category> findAllCategories() {
-//        List<Category> categoryList = categoryRepository.findAll();
-//
-//        Locale locale = LocaleContextHolder.getLocale();
-//        if(!locale.toString().equals("en")) {
-//            List<CategoryTranslate> categoryTranslateList = findAllCategoriesByLocale();
-//
-//            for (Category category : categoryList) {
-//                for (CategoryTranslate categoryTranslate : categoryTranslateList) {
-//                    if (category.getId().equals(categoryTranslate.getCategory().getId())) {
-//                        category.setName(categoryTranslate.getName());
-//                    }
-//                }
-//            }
-//        }
-//
-//        return categoryList;
-//    }
-//
-//    public List<CategoryTranslate> findAllCategoriesByLocale() {
-//        Locale locale = LocaleContextHolder.getLocale();
-//        List<CategoryTranslate> categoryTranslateList = categoryTranslateRepository.findAllByLanguage_Id(locale.toString());
-//        return categoryTranslateList;
-//    }
 
 
 

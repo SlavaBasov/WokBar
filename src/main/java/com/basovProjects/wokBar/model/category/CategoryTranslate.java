@@ -1,4 +1,6 @@
-package com.basovProjects.wokBar.model;
+package com.basovProjects.wokBar.model.category;
+
+import com.basovProjects.wokBar.model.Language;
 
 import javax.persistence.*;
 

@@ -1,5 +1,7 @@
 package com.basovProjects.wokBar.model;
 
+import com.basovProjects.wokBar.model.category.Category;
+
 import javax.persistence.*;
 import java.util.Objects;
 

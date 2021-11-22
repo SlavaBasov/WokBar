@@ -1,7 +1,5 @@
 package com.basovProjects.wokBar.service;
 
-import com.basovProjects.wokBar.model.CategoryTranslate;
-
 import java.util.List;
 
 public interface CategoryService<I, E>{
@@ -9,6 +7,7 @@ public interface CategoryService<I, E>{
     boolean update(E e);
     boolean delete(I id);
     E findById(I id);
+    E findByIdWithLocalization(I id);
     List<E> findAllCategories();
 //    List<CategoryTranslate> findCategories();
 }

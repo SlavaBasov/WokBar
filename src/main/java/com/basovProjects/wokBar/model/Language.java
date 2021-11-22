@@ -16,19 +16,11 @@ public class Language {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "is_default_locale")
-    private Boolean defaultLocal;
-
     public Language() {
     }
 
     public Language(String name) {
         this.name = name;
-    }
-
-    public Language(String name, Boolean defaultLocal) {
-        this.name = name;
-        this.defaultLocal = defaultLocal;
     }
 
     public String getId() {
@@ -47,20 +39,11 @@ public class Language {
         this.name = name;
     }
 
-    public Boolean isDefaultLocal() {
-        return defaultLocal;
-    }
-
-    public void setDefaultLocal(Boolean defaultLocal) {
-        this.defaultLocal = defaultLocal;
-    }
-
     @Override
     public String toString() {
         return "Language{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", isDefaultLocal=" + defaultLocal +
                 '}';
     }
 }
