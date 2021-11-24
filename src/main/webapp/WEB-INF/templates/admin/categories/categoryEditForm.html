@@ -16,18 +16,20 @@
 <div th:insert="~{navigation/header :: header}"></div>
 <div class="d-flex container-fluid">
     <div class="row">
-        <form th:action="@{/admin/categoryEditForm}" method="post" th:object="${categoryEdit}">
+        <form th:action="@{/admin/categories/categoryEditForm}" method="post" th:object="${categoryEdit}">
             <h2>Category change form</h2>
             <div class="row">
-
+                <div>
+                    <input type="hidden" th:field="*{id}" id="categoryId">
+                </div>
                 <div class="mb-2">
-                    <label for="inputUsername" class="form-label">Change name of category: </label>
-                    <input type="text" class="form-control" id="inputUsername" th:field="*{name}">
-                    <a href="" th:href="@{/admin/categoryEditTranslationForm(id=${categoryEdit.getId()})}">Change name's translation</a>
+                    <label for="inputCategoryName" class="form-label">Change name of category: </label>
+                    <input type="text" class="form-control" id="inputCategoryName" th:field="*{name}">
+                    <a href="" th:href="@{/admin/categories/categoryEditTranslationForm(id=${categoryEdit.getId()})}">Change name's translation</a>
                 </div>
 
                 <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit" th:text="#{registration.register}">Register</button>
+                <button class="btn btn-primary" type="submit">Accept changes</button>
                 </span>
             </div>
         </form>

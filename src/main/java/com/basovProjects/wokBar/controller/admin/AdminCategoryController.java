@@ -1,7 +1,7 @@
-package com.basovProjects.wokBar.controller;
+package com.basovProjects.wokBar.controller.admin;
 
-import com.basovProjects.wokBar.model.category.Category;
 import com.basovProjects.wokBar.model.User;
+import com.basovProjects.wokBar.model.category.Category;
 import com.basovProjects.wokBar.model.category.CategoryTranslate;
 import com.basovProjects.wokBar.service.CategoryService;
 import com.basovProjects.wokBar.service.CategoryTranslateService;
@@ -11,18 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/admin/categories")
+public class AdminCategoryController {
 
     private final UserService<Long, User> userService;
     private final CategoryService<Long, Category> categoryService;
     private final CategoryTranslateService<Long, CategoryTranslate> categoryTranslateService;
 
     @Autowired
-    public AdminController(UserService<Long, User> userService,
+    public AdminCategoryController(UserService<Long, User> userService,
                            CategoryService<Long, Category> categoryService,
                            CategoryTranslateService<Long, CategoryTranslate> categoryTranslateService) {
         this.userService = userService;
@@ -31,36 +29,24 @@ public class AdminController {
     }
 
     @GetMapping
-    public String admin(){
-        return "/admin/adminPage";
-    }
-
-    @GetMapping("/allUsers")
-    public String allUsers(Model model){
-        model.addAttribute("allUsers", userService.allUsers());
-        return "/admin/allUsers";
-    }
-
-    @GetMapping("/categories")
     public String categories(Model model){
-//        model.addAttribute("categories", categoryService.findAllCategories());
         model.addAttribute("categories", categoryService.findAllCategories());
         return "admin/categories/categories";
     }
 
-    @GetMapping("/categoryForm")
+    @GetMapping("/newCategoryForm")
     public String categoryForm(Model model){
         model.addAttribute("category", new Category());
-        return "admin/categories/categoryForm";
+        return "/admin/categories/newCategoryForm";
     }
 
-    @PostMapping("/categoryForm")
+    @PostMapping("/newCategoryForm")
     public String addNewCategory(@ModelAttribute Category category){
         boolean check = categoryService.save(category);
         if(!check){
-            return "admin/categories/categoryForm";
+            return "/admin/categories/newCategoryForm";
         }
-        return "admin/categories/categories";
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/categoryEditForm")
@@ -75,14 +61,14 @@ public class AdminController {
         if(!check){
             return "admin/categories/categoryEditForm";
         }
-        return "admin/categories/categories";
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/categoryEditTranslationForm")
     public String categoryEditLocalizationForm(@RequestParam("id") Long id, Model model){
         CategoryTranslate categoryTranslateRu = categoryTranslateService.findTranslationToRussianByCategoryId(id);
         model.addAttribute("categoryTranslateRu", categoryTranslateRu);
-        return "admin/categories/CategoryEditTranslationForm";
+        return "/admin/categories/categoryEditTranslationForm";
     }
 
     @PostMapping("/categoryEditTranslationForm")
@@ -91,9 +77,10 @@ public class AdminController {
         check = categoryTranslateService.update(categoryTranslate);
 
         if(!check){
-            return "admin/categories/CategoryEditTranslationForm";
+            return "/admin/categories/categoryEditTranslationForm";
         }
-        return "admin/categories/categoryEditForm";
+        return "redirect:/admin/categories";
     }
+
 
 }

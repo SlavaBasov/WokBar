@@ -9,6 +9,7 @@ import com.basovProjects.wokBar.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +36,12 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
 
     @Override
     public boolean save(Category category) {
-        categoryRepository.save(category);
+//        try {
+            categoryRepository.save(category);
+//        } catch (DataIntegrityViolationException ex){
+//            System.out.println("уже есть такая категория");
+//        }
+
         return true;
     }
 
@@ -57,6 +63,11 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
     }
 
     @Override
+    public Category findById(Long id){
+        return categoryRepository.findById(id).orElse(new Category());
+    }
+
+    @Override
     public Category findByIdWithLocalization(Long id) {
         Category category = findById(id);
         Locale locale = LocaleContextHolder.getLocale();
@@ -67,11 +78,6 @@ public class CategoryServiceImpl implements CategoryService<Long, Category> {
             }
         }
          return category;
-    }
-
-    @Override
-    public Category findById(Long id){
-        return categoryRepository.findById(id).orElse(new Category());
     }
 
     @Override

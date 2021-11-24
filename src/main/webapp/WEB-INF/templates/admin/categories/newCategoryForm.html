@@ -16,11 +16,11 @@
 <div th:insert="~{navigation/header :: header}"></div>
 <div class="d-flex container-fluid">
     <div class="row">
-        <form th:action="@{/categoryForm}" method="post" th:object="${category}">
+        <form th:action="@{/admin/categories/newCategoryForm}" method="post" th:object="${category}">
             <h2>New category</h2>
             <div class="row">
                 <div class="mb-2">
-                    <label for="inputUsername" class="form-label">Category's name</label>
+                    <label for="inputUsername" class="form-label">Input category's name</label>
                     <input type="text" class="form-control" id="inputUsername" th:field="*{name}">
                 </div>
                 <span class="input-group-btn">
