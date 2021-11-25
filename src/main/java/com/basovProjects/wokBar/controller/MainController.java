@@ -20,9 +20,6 @@ public class MainController {
 
         model.addAttribute("message", "You are logged in as "
                 + context.getAuthentication().getName());
-        log.debug("Debug Message Logged !!!");
-        log.info("Info Message Logged !!!");
-//        log.error("Error Message Logged !!!", new NullPointerException("NullError"));
         return "mainPage";
     }
 }

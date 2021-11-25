@@ -1,4 +1,4 @@
-package com.basovProjects.wokBar.exceptionHandler;
+package com.basovProjects.wokBar.aop;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.ui.Model;
