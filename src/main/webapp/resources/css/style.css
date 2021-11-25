@@ -1,3 +1,17 @@
+body {
+    background: url(/resources/images/background.jpg) no-repeat 0px 50px;/* Цвет фона и путь к файлу */
+    background-size: 100% auto;
+    color: #fff; /* Цвет текста */
+}
+
+div{
+    color: #fff;
+}
+
+table{
+    border-color: white;
+}
+
 .buttonLink{
     white-space: nowrap;
     text-align: center;

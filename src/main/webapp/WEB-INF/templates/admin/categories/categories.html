@@ -27,9 +27,9 @@
             <tr th:each="category,state : ${categories}">
                 <td th:text="${state.count}"></td>
                 <td th:text="${category.name}"></td>
-                <td><a href="/admin" th:href="@{/admin/categories/categoryEditForm(id=${category.id})}" role="button" class="btn btn-link" th:text="Edit"></a>
-                    <a href="/admin" th:href="@{/WEB-INF/templates/admin}" type="button" class="btn btn-link" th:text="Delete"></a>
-                    <a href="/admin" th:href="@{/WEB-INF/templates/admin}" role="button" class="btn btn-link" th:text="Products"></a>
+                <td><a href="/admin" th:href="@{/admin/categories/categoryEditForm(id=${category.id})}" role="button" class="btn btn-success" th:text="Edit"></a>
+                    <a href="/admin" th:href="@{/WEB-INF/templates/admin}" type="button" class="btn btn-success" th:text="Delete"></a>
+                    <a href="/admin" th:href="@{/WEB-INF/templates/admin}" role="button" class="btn btn-success" th:text="Products"></a>
                 </td>
             </tr>
         </table>
