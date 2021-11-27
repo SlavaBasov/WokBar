@@ -14,11 +14,16 @@
 </head>
 <body>
 <div th:insert="~{navigation/header :: header}"></div>
-<div class="d-flex container-fluid">
+<div class="d-flex container">
   <div class="row">
-    <form th:action="@{/admin/categories/categoryEditTranslationForm}" method="post" th:object="${categoryTranslateRu}">
+    <form th:action="@{/admin/categories/categoryEditTranslationRussianForm}" method="post" th:object="${categoryTranslate}">
       <h2>Category's translation</h2>
       <div class="row">
+        <div>
+          <input type="hidden" th:field="*{id}" id="id">
+          <input type="hidden" th:field="*{category.id}" id="categoryId">
+          <input type="hidden" th:field="*{language.id}" id="language.id">
+        </div>
         <div class="mb-2">
           <label for="inputUsername" class="form-label">Change name's translation: </label>
           <input type="text" class="form-control" id="inputUsername" th:field="*{name}">

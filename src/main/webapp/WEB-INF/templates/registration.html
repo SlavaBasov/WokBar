@@ -27,7 +27,7 @@
         <label for="inputUsername" class="form-label" th:text="#{registration.username.title}">Username</label>
         <input type="text" class="form-control" id="inputUsername" th:field="*{username}">
         <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="errorText"></span>
-        <span th:text="${usernameError}" class="errorText"></span>
+        <span th:if="${usernameError!=null}" th:text="${usernameError}" class="errorText"></span>
       </div>
       <div class="mb-2">
         <label for="inputPassword" class="form-label" th:text="#{registration.password.title}">Password</label>
@@ -38,7 +38,7 @@
         <label for="inputPasswordConfirm" class="form-label" th:text="#{registration.passwordConfirm.title}">Password confirm</label>
         <input type="text" class="form-control" id="inputPasswordConfirm" th:field="*{passwordConfirm}">
         <p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{password}" class="errorText"></p>
-        <span th:text="${passwordError}" class="errorText"></span>
+        <span th:if="${passwordError!=null}" th:text="${passwordError}" class="errorText"></span>
       </div>
       <div class="mb-2">
 

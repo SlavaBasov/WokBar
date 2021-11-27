@@ -1,8 +1,10 @@
 package com.basovProjects.wokBar.model;
 
 import com.basovProjects.wokBar.model.category.Category;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 @Entity
@@ -13,13 +15,19 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
+    @NotBlank(message = "это поле не должно быть пустым")
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
+    @Column(name="image_url")
+    private String imageUrl;
+
+    @Column(name = "price", nullable = false)
+    @NotNull(message = "это поле не должно быть пустым")
+    @Min(value = 0, message = "цена должна быть не меньше 0")
     private Double price;
 
     @ManyToOne
@@ -38,6 +46,23 @@ public class Product {
     public Product(String name, String description, Double price, Category category) {
         this.name = name;
         this.description = description;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Product(String name, String description, String imageUrl, Double price, Category category) {
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Product(Long id, String name, String description, String imageUrl, Double price, Category category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
         this.price = price;
         this.category = category;
     }
@@ -66,6 +91,14 @@ public class Product {
         this.description = description;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Double getPrice() {
         return price;
     }
@@ -88,6 +121,7 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 ", price=" + price +
                 ", category=" + category +
                 '}';
@@ -98,11 +132,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(price, product.price) && Objects.equals(category, product.category);
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(imageUrl, product.imageUrl) && Objects.equals(price, product.price) && Objects.equals(category, product.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, price, category);
+        return Objects.hash(id, name, description, imageUrl, price, category);
     }
 }

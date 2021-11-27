@@ -10,20 +10,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
             crossorigin="anonymous"></script>
-    <title>Categories Form</title>
+    <title>New product form</title>
 </head>
 <body>
 <div th:insert="~{navigation/header :: header}"></div>
 <div class="d-flex container">
     <div class="row">
-        <form th:action="@{/admin/categories/newCategoryForm}" method="post" th:object="${category}">
-            <h2>New category</h2>
+        <form th:action="@{/admin/categories/productsOfCategory/newProduct}" method="post" th:object="${product}">
+            <h2>New product</h2>
             <div class="row">
+                <div>
+                    <input type="hidden" id="categoryId" th:field="*{category.id}">
+                </div>
                 <div class="mb-2">
-                    <label for="inputUsername" class="form-label">Input category's name</label>
-                    <input type="text" class="form-control" id="inputUsername" th:field="*{name}">
+                    <label for="inputName" class="form-label">Input name</label>
+                    <input type="text" class="form-control" id="inputName" th:field="*{name}">
                     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errorText"></p>
                     <p th:if="${errorMessage!=null}" th:text="${errorMessage}" class="errorText"></p>
+                </div>
+                <div class="mb-2">
+                    <label for="inputPrice" class="form-label">Input price</label>
+                    <input type="number" class="form-control" id="inputPrice" th:field="*{price}">
+                    <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="errorText"></p>
+                </div>
+                <div class="mb-2">
+                    <label for="inputDescription" class="form-label">Input description</label>
+                    <textarea class="form-control" id="inputDescription" rows="4" th:field="*{description}"></textarea>
                 </div>
                 <span class="input-group-btn">
                 <button class="btn btn-primary" type="submit" th:text="Add">Add</button>

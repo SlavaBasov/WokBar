@@ -14,9 +14,9 @@
 </head>
 <body>
   <div th:insert="~{navigation/header :: header}"></div>
-  <div class="container mt-2">
+  <div class="container">
     <h1>500 error</h1>
-    <p th:text="${message}" style="color: red"></p>
+    <p th:text="${errorMessage}" style="color: red"></p>
     <p>Exception name: <span th:text="${exName}">None</span></p>
   </div>
 </body>

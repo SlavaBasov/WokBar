@@ -38,8 +38,8 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orderList = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Order> orderList = new ArrayList<>();
 
     public User() {
     }
@@ -138,13 +138,13 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public List<Order> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
-    }
+//    public List<Order> getOrderList() {
+//        return orderList;
+//    }
+//
+//    public void setOrderList(List<Order> orderList) {
+//        this.orderList = orderList;
+//    }
 
     @Override
     public String toString() {
@@ -155,20 +155,20 @@ public class User implements UserDetails {
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", roles=" + roles +
-                ", orderList=" + orderList +
+//                ", orderList=" + orderList +
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(passwordConfirm, user.passwordConfirm) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(roles, user.roles) && Objects.equals(orderList, user.orderList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, passwordConfirm, phoneNumber, roles, orderList);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        User user = (User) o;
+//        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(passwordConfirm, user.passwordConfirm) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(roles, user.roles) && Objects.equals(orderList, user.orderList);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, username, password, passwordConfirm, phoneNumber, roles, orderList);
+//    }
 }

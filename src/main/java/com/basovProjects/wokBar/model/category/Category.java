@@ -3,6 +3,7 @@ package com.basovProjects.wokBar.model.category;
 import com.basovProjects.wokBar.model.Product;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,10 +15,11 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name", unique = true, nullable = false)
+    @NotBlank(message = "поле не должно быть пустым")
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Map<String, Product> productsByName = new HashMap<>();
 
     public Category() {

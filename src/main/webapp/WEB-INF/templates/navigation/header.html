@@ -26,39 +26,47 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/}" th:text="#{header.home.title}">Home</a>
+                        <div th:if="${#httpServletRequest.requestURI}=='/'">
+                            <a class="nav-link active" aria-current="page" th:href="@{/}" th:text="#{header.home.title}">Home</a>
+                        </div>
+                        <div th:if="${#httpServletRequest.requestURI}!='/'">
+                            <a class="nav-link" aria-current="page" th:href="@{/}" th:text="#{header.home.title}">Home</a>
+                        </div>
+
                     </li>
-                    <div sec:authorize="hasRole('ADMIN')">
-                        <li class="nav-item">
-                            <a class="nav-link active" th:href="@{/admin}" th:text="#{header.admin.title}">Admin</a>
-                        </li>
-                    </div>
-                    <div sec:authorize="hasRole('USER')">
-                        <li class="nav-item">
-                            <a class="nav-link active" th:href="@{/user}" th:text="#{header.user.title}">User</a>
-                        </li>
-                    </div>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/info}" th:text="#{header.info.title}">Info</a>
+
+                        <div>
+                            <a th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/menu')} ? 'nav-link active' : 'nav-link'" th:href="@{/menu/wok}" th:text="Menu">Menu</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div th:if="${#httpServletRequest.requestURI}=='/info'">
+                            <a class="nav-link active" th:href="@{/info}" th:text="#{header.info.title}">Info</a>
+                        </div>
+                        <div th:if="${#httpServletRequest.requestURI}!='/info'">
+                            <a class="nav-link" th:href="@{/info}" th:text="#{header.info.title}">Info</a>
+                        </div>
                     </li>
                 </ul>
                 <form class="d-flex">
 
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" th:placeholder="#{header.search.title}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                           th:placeholder="#{header.search.title}">
 
                     <div class="dropdown mx-2">
                         <a class="btn btn-secondary dropdown-toggle" href="#" type="button" id="dropdownMenuButton1"
                            data-bs-toggle="dropdown" aria-expanded="false" th:text="#{header.language.title}">
                             Language
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" th:text="#{header.language.en}" type="button"
                                    th:href="${#httpServletRequest.requestURI} + '?lang=en'"></a></li>
-<!--                                   th:href="'/' + '?lang=en'"></a></li>-->
+                            <!--                                   th:href="'/' + '?lang=en'"></a></li>-->
 
                             <li><a class="dropdown-item" th:text="#{header.language.ru}" type="button"
                                    th:href="${#httpServletRequest.requestURI} + '?lang=ru'"></a></li>
-<!--                                   th:href="'/' + '?lang=ru'"></a></li>-->
+                            <!--                                   th:href="'/' + '?lang=ru'"></a></li>-->
 
                         </ul>
                     </div>
@@ -68,15 +76,27 @@
                            th:text="#{header.registration.title}"></a>
                     </div>
                     <div sec:authorize="isAnonymous()">
-                        <a href="/login" class="btn btn-outline-light mx-1" role="button" th:text="#{header.login.title}"></a>
+                        <a href="/login" class="btn btn-outline-light mx-1" role="button"
+                           th:text="#{header.login.title}"></a>
                     </div>
                     <div sec:authorize="isAuthenticated()">
-                        <div class="dropdown mx-1">
+                        <div class="dropdown">
                             <a class="btn btn-success dropdown-toggle" href="#" type="button" id="dropdownMenuButton2"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span th:text="#{header.user.title} + ': '">User: </span><span sec:authentication="name"></span>
+<!--                                <span th:text="#{header.user.title} + ': '">User: </span>-->
+                                <span sec:authentication="name"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
+                                aria-labelledby="dropdownMenuButton2">
+                                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                                    <a class="nav-link active" th:href="@{/admin/categories}"
+                                       th:text="Categories">Categories</a>
+                                </li>
+                                <li class="nav-item" sec:authorize="hasRole('USER')">
+                                    <a class="nav-link active" th:href="@{/user}"
+                                       th:text="#{header.user.title}">User</a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li><a href="/signout" class="dropdown-item btn btn-warning text-nowrap"
                                        role="button" th:text="#{header.signOut.title}" style="color: red"></a></li>
                             </ul>
