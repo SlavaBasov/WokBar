@@ -1,5 +1,6 @@
 package com.basovProjects.wokBar.service.impl;
 
+import com.basovProjects.wokBar.exceptions.MyObjectNotFoundException;
 import com.basovProjects.wokBar.model.Role;
 import com.basovProjects.wokBar.model.User;
 import com.basovProjects.wokBar.repository.RoleRepository;
@@ -61,6 +62,15 @@ public class UserServiceImpl implements UserService<Long, User> {
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
+    }
+
+    public User findUserByUserName(String name) throws MyObjectNotFoundException {
+        User user = userRepository.findByUsername(name);
+        if(user!=null){
+            return user;
+        }else {
+            throw new MyObjectNotFoundException(String.format("User with name %s not found", name));
+        }
     }
 
     @Override

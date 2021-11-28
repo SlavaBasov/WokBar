@@ -46,9 +46,24 @@
                                             </h5>
 
                                         </div>
-                                        <div class="col-6">
+<!--                                        <div class="col-6">-->
+<!--                                            <a th:href="@{${#httpServletRequest.requestURI}+'/add_to_basket'+__${product.id}__}" class="btn btn-primary">Add to basket</a>-->
+<!--                                        </div>-->
+
+
+<!--                                        <li class="nav-item" sec:authorize="hasRole('USER')">-->
+<!--                                            <a class="nav-link active" th:href="@{/cart}"-->
+<!--                                               th:text="Cart">Cart</a>-->
+<!--                                        </li>-->
+
+                                        <div class="col-6" sec:authorize="hasRole('USER')">
                                             <a th:href="@{${#httpServletRequest.requestURI}+'/add_to_basket'+__${product.id}__}" class="btn btn-primary">Add to basket</a>
-<!--                                            <a th:href="@{'/menu/add_to_basket'+__${product.id}__+__${#httpServletRequest.requestURI}__}" class="btn btn-primary">Add to basket</a>-->
+                                        </div>
+                                        <div class="col-6" sec:authorize="hasRole('ADMIN')">
+                                            <a th:href="@{/login}" class="btn btn-primary">Add to basket</a>
+                                        </div>
+                                        <div class="col-6" sec:authorize="anonymous">
+                                            <a th:href="@{/login}" class="btn btn-primary">Add to basket</a>
                                         </div>
                                     </div>
                                 </div>

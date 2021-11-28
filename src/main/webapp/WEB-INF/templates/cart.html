@@ -68,7 +68,7 @@
     <div class="float-end">
         <br>
         <h2><span th:text="'Total price: '+${totalPrice}+' руб.'"></span></h2>
-        <a th:href="@{${#httpServletRequest.requestURI}}" type="button" class="btn btn-primary float-end"
+        <a th:href="@{${#httpServletRequest.requestURI}+'/order'}" type="button" class="btn btn-primary float-end"
            th:text="'Form an order'">Form an order</a>
     </div>
 
