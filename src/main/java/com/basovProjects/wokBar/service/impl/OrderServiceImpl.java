@@ -1,5 +1,6 @@
 package com.basovProjects.wokBar.service.impl;
 
+import com.basovProjects.wokBar.enums.OrderStatus;
 import com.basovProjects.wokBar.exceptions.MyObjectNotFoundException;
 import com.basovProjects.wokBar.model.*;
 import com.basovProjects.wokBar.repository.LineItemRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service()
 public class OrderServiceImpl implements OrderService {
@@ -36,14 +39,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public boolean formAnOrder() throws MyObjectNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
-        Object principal = authentication.getPrincipal();
-
         User user = userService.findUserByUserName(name);
 
-//        User userFound = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
 
@@ -54,6 +55,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUser(user);
         order.setTime(time);
         order.setDate(date);
+        order.setStatus(OrderStatus.NOT_PAID.toString());
         order.setTotalPrice(shoppingCart.getSubTotalCost());
 
 
@@ -73,5 +75,41 @@ public class OrderServiceImpl implements OrderService {
         lineItemRepository.saveAll(lineItemList);
         return true;
 
+    }
+
+    @Override
+    public List<Order> getAllOrders(){
+        return orderRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public boolean setStatus(Long orderId, String status) throws MyObjectNotFoundException {
+        if(orderId==null){
+            return false;
+        }
+        Order orderFromDB = getById(orderId);
+        orderFromDB.setStatus(status);
+        return true;
+    }
+
+    @Override
+    public Order getById(Long id) throws MyObjectNotFoundException {
+        Order orderFromDB;
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        try {
+            orderFromDB = orderOptional.get();
+        }catch (Exception ex){
+            throw new MyObjectNotFoundException(String.format("Not found the order by id = ", id));
+        }
+        return orderFromDB;
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(Long id){
+        lineItemRepository.deleteAllByOrder_Id(id);
+        orderRepository.deleteById(id);
+        return true;
     }
 }

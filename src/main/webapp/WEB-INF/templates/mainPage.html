@@ -20,11 +20,11 @@
 
   <h2 th:text="#{main.welcome}"></h2>
 
-  Name of USER: <span sec:authentication="name"></span>
+<!--  Name of USER: <span sec:authentication="name"></span>-->
 
-  <div sec:authorize="hasRole('USER')">Text visible to user.</div>
-  <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-  <div sec:authorize="isAnonymous()">Аноним</div>
+<!--  <div sec:authorize="hasRole('USER')">Text visible to user.</div>-->
+<!--  <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>-->
+<!--  <div sec:authorize="isAnonymous()">Аноним</div>-->
 
   <div th:insert="~{navigation/footer :: footer}"></div>
 </div>

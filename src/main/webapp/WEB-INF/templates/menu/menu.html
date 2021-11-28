@@ -40,30 +40,26 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <h5 class="d-flex justify-content-start" >
                                                 <p th:text="${product.price} + ' руб.'"></p>
                                             </h5>
 
                                         </div>
-<!--                                        <div class="col-6">-->
-<!--                                            <a th:href="@{${#httpServletRequest.requestURI}+'/add_to_basket'+__${product.id}__}" class="btn btn-primary">Add to basket</a>-->
-<!--                                        </div>-->
+                                        <div class="col-3"></div>
 
-
-<!--                                        <li class="nav-item" sec:authorize="hasRole('USER')">-->
-<!--                                            <a class="nav-link active" th:href="@{/cart}"-->
-<!--                                               th:text="Cart">Cart</a>-->
-<!--                                        </li>-->
-
-                                        <div class="col-6" sec:authorize="hasRole('USER')">
-                                            <a th:href="@{${#httpServletRequest.requestURI}+'/add_to_basket'+__${product.id}__}" class="btn btn-primary">Add to basket</a>
+                                        <div class="col-5" sec:authorize="hasRole('USER')">
+                                            <a th:href="@{${#httpServletRequest.requestURI}+'/add_to_basket'+
+                                            __${product.id}__}" class="btn btn-primary"
+                                               th:text="#{menu.addToCart.button}">Add to cart</a>
                                         </div>
-                                        <div class="col-6" sec:authorize="hasRole('ADMIN')">
-                                            <a th:href="@{/login}" class="btn btn-primary">Add to basket</a>
+                                        <div class="col-5" sec:authorize="hasRole('ADMIN')">
+                                            <a th:href="@{/login}" class="btn btn-primary"
+                                               th:text="#{menu.addToCart.button}">Add to cart</a>
                                         </div>
-                                        <div class="col-6" sec:authorize="anonymous">
-                                            <a th:href="@{/login}" class="btn btn-primary">Add to basket</a>
+                                        <div class="col-5" sec:authorize="anonymous">
+                                            <a th:href="@{/login}" class="btn btn-primary"
+                                               th:text="#{menu.addToCart.button}">Add to cart</a>
                                         </div>
                                     </div>
                                 </div>

@@ -35,6 +35,9 @@ public class CartController {
         model.addAttribute("cartProducts",
                 new ArrayList<>(shoppingCart.getLineItems().values()));
         model.addAttribute("totalPrice", shoppingCart.getSubTotalCost());
+        if(shoppingCart.getLineItems().isEmpty()){
+            model.addAttribute("cartNoProductsMessage", "There are no orders in your cart yet.");
+        }
         return "cart";
     }
 
@@ -55,4 +58,5 @@ public class CartController {
         shoppingCart.deleteLineItem(productId);
         return "redirect:/cart";
     }
+
 }

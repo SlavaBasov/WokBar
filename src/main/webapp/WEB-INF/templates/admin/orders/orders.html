@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+  <link rel="stylesheet" type="text/css" href="/resources/css/style.css" th:href="@{/resources/css/style.css}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <title>Products</title>
+</head>
+<body>
+<div th:insert="~{navigation/header :: header}"></div>
+<div class="container">
+  <div class="row">
+    <h1 th:text="Orders">Orders</h1>
+
+    <table class="table-bordered col text-center">
+      <tr>
+        <th class="col-1">№</th>
+        <th class="col-1">
+          <p th:text="Date"></p>
+          <p th:text="Time"></p>
+        </th>
+        <th class="col-1">
+          <p th:text="Username"></p>
+          <p th:text="'Phone number'"></p>
+        </th>
+        <th>Products/price</th>
+        <th class="col-1">Total price</th>
+        <th class="col-1">Status</th>
+        <th class="col-2">Options</th>
+
+      </tr>
+      <tr th:each="order,state : ${orders}" class="text-center">
+        <td th:text="${state.count}"></td>
+        <td>
+          <p th:text="${order.date}"></p>
+          <p th:text="${order.time}"></p>
+        </td>
+        <td>
+          <p th:text="${order.user.username}"></p>
+          <p th:text="${order.user.phoneNumber}"></p>
+        </td>
+        <td>
+          <ul th:each="item,state: ${order.lineItems}">
+               <p th:text="${state.count}+'. '+${item.product.name}+
+               ' ('+${item.quantity}+' шт.) - '+${item.product.price}+' руб.'"></p>
+            </li>
+          </ul>
+        </td>
+        <td th:text="${order.totalPrice}+' руб.'"></td>
+        <td th:text="${order.status}"></td>
+        <td>
+          <a th:href="@{${#httpServletRequest.requestURI}+'/status_paid'+__${order.id}__}" role="button" class="btn btn-success m-2"
+             th:text="Paid">Paid</a>
+          <a th:href="@{${#httpServletRequest.requestURI}+'/status_completed'+__${order.id}__}" role="button" class="btn btn-success m-2"
+                             th:text="Completed">Completed</a>
+          <a th:href="@{${#httpServletRequest.requestURI}+'/delete_order'+__${order.id}__}" type="button" class="btn btn-dark m-2"
+             th:text="Delete">Delete</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

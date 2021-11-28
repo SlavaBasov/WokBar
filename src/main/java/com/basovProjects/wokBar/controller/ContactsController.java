@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/info")
-public class InfoController {
+@RequestMapping("/contacts")
+public class ContactsController {
 
     @GetMapping()
     public String info(){
-        return "info";
+        return "contacts";
     }
 }

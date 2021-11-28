@@ -11,65 +11,68 @@
             integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <title>Cart</title>
+    <title th:text="#{cart.title}">Cart</title>
 </head>
 <body>
 <div th:insert="~{navigation/header :: header}"></div>
 <div class="container">
     <div class="row">
-        <h1>Cart</h1>
+        <h1 th:text="#{cart.title}">Cart</h1>
 
-        <table class="table-bordered col text-center">
+        <table th:if="${!cartProducts.empty}"  class="table-bordered col text-center">
             <tr>
                 <th>№</th>
-                <th>Product</th>
-                <th>Description</th>
-                <th>Price for one</th>
-                <th>Amount</th>
-                <th>Full price</th>
-                <th>Action</th>
+                <th th:text="#{cart.product.title}">Product</th>
+                <th th:text="#{cart.description.title}">Description</th>
+                <th th:text="#{cart.pricePerOne}">Price for one</th>
+                <th th:text="#{cart.amount.title}">Amount</th>
+                <th th:text="#{cart.price.title}">Full price</th>
+                <th th:text="#{cart.actions.title}">Action</th>
 
             </tr>
-            <tr th:each="lineItem,state : ${cartProducts}" class="text-center">
+            <tr th:each="item,state : ${cartProducts}" class="text-center">
                 <td th:text="${state.count}" class="col-1"></td>
                 <td class="col-1">
-                    <img th:src="${lineItem.product.imageUrl}" alt="" style="height: 100px;">
+                    <img th:src="${item.product.imageUrl}" alt="" style="height: 100px;">
                 </td>
                 <td>
-                    <h5 th:text="${lineItem.product.name}"></h5>
-                    <p th:text="${lineItem.product.description}"></p>
+                    <h5 th:text="${item.product.name}"></h5>
+                    <p th:text="${item.product.description}"></p>
                 </td>
-                <td th:text="${lineItem.price}" class="col-1"></td>
+                <td th:text="${item.price}" class="col-1"></td>
                 <td class="col-2">
 
                     <div class="mx-1 d-inline">
-                        <a th:href="@{${#httpServletRequest.requestURI}+'/subtractQuantityTo'+__${lineItem.product.id}__}"
+                        <a th:href="@{${#httpServletRequest.requestURI}+'/subtractQuantityTo'+__${item.product.id}__}"
                            type="button" class="btn btn-outline-light float-none" th:text="'-'" style="width: 40px; margin-right: 10px;"></a>
 <!--                        <br>-->
 <!--                        <span th:text="' '+${lineItem.quantity}+' '"></span>-->
 <!--                        <input type="number" th:value="${lineItem.quantity}" style="width: 50px; height: 40px;">-->
-                        <span th:text="${lineItem.quantity}" style="font-size: 16px;"></span>
+                        <span th:text="${item.quantity}" style="font-size: 16px;"></span>
 <!--                        <br>-->
 
-                        <a th:href="@{${#httpServletRequest.requestURI}+'/addQuantityTo'+__${lineItem.product.id}__}"
+                        <a th:href="@{${#httpServletRequest.requestURI}+'/addQuantityTo'+__${item.product.id}__}"
                            type="button" class="btn btn-outline-light float-none" th:text="'+'" style="width: 40px; margin-left: 10px;";></a>
                     </div>
 
 
                 </td>
-                <td th:text="${lineItem.totalPrice}" class="col-1"></td>
-                <td class="col-3">
-                    <a th:href="@{${#httpServletRequest.requestURI}+'/delete'+__${lineItem.product.id}__}" type="button" class="btn btn-dark"
-                       th:text="Delete">Delete</a>
+                <td th:text="${item.totalPrice}" class="col-1"></td>
+                <td class="col-1">
+                    <a th:href="@{${#httpServletRequest.requestURI}+'/delete'+__${item.product.id}__}" type="button" class="btn btn-dark"
+                       th:text="#{cart.delete.title}">Delete</a>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="float-end">
+    <div th:if="${!cartProducts.empty}"  class="float-end mb-5">
         <br>
-        <h2><span th:text="'Total price: '+${totalPrice}+' руб.'"></span></h2>
+        <h2><span th:text="#{cart.totalPrice}+': '+${totalPrice}+' руб.'"></span></h2>
         <a th:href="@{${#httpServletRequest.requestURI}+'/order'}" type="button" class="btn btn-primary float-end"
-           th:text="'Form an order'">Form an order</a>
+           th:text="#{cart.formAnOrder}">Form an order</a>
+    </div>
+    <div th:if="${cartProducts.empty}">
+        <h4 th:if="${cartNoProductsMessage}!=null" th:text="${cartNoProductsMessage}"></h4>
     </div>
 
 </div>

@@ -1,5 +1,7 @@
 package com.basovProjects.wokBar.model;
 
+import com.basovProjects.wokBar.enums.OrderStatus;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,29 +25,17 @@ public class Order {
     @Column(name = "time")
     private LocalTime time;
 
+    @Column(name="status")
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<LineItem> lineItems;
 
     public Order() {
-    }
-
-    public Order(Double totalPrice, LocalDate date, LocalTime time, User user) {
-        TotalPrice = totalPrice;
-        this.date = date;
-        this.time = time;
-        this.user = user;
-    }
-
-    public Order(Double totalPrice, LocalDate date, LocalTime time, User user, List<LineItem> lineItems) {
-        TotalPrice = totalPrice;
-        this.date = date;
-        this.time = time;
-        this.user = user;
-        this.lineItems = lineItems;
     }
 
     public Long getId() {
@@ -80,6 +70,14 @@ public class Order {
         this.time = time;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public User getUser() {
         return user;
     }
@@ -103,6 +101,7 @@ public class Order {
                 ", TotalPrice=" + TotalPrice +
                 ", date=" + date +
                 ", time=" + time +
+                ", status=" + status +
                 ", user=" + user +
                 ", lineItems=" + lineItems +
                 '}';
@@ -113,11 +112,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(id, order.id) && Objects.equals(TotalPrice, order.TotalPrice) && Objects.equals(date, order.date) && Objects.equals(time, order.time) && Objects.equals(user, order.user) && Objects.equals(lineItems, order.lineItems);
+        return Objects.equals(id, order.id) && Objects.equals(TotalPrice, order.TotalPrice) && Objects.equals(date, order.date) && Objects.equals(time, order.time) && Objects.equals(status, order.status) && Objects.equals(user, order.user) && Objects.equals(lineItems, order.lineItems);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, TotalPrice, date, time, user, lineItems);
+        return Objects.hash(id, TotalPrice, date, time, status, user, lineItems);
     }
 }

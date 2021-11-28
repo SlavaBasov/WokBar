@@ -44,6 +44,12 @@ public class MenuController {
         return "menu/menu";
     }
 
+    @GetMapping("/other")
+    public String menuOther(Model model){
+        model.addAttribute("products", productService.getAllProductsByCategoryId(4L));
+        return "menu/menu";
+    }
+
     @GetMapping("/{categoryName}/add_to_basket{product_id}")
     public String addToBasket(@PathVariable("product_id") Long productId,
                               @PathVariable("categoryName") String categoryName) throws MyObjectNotFoundException {

@@ -10,9 +10,8 @@
 </head>
 <body>
 <div th:fragment="footer">
-    <nav class="card-footer blockquote-footer">
-<!--    <nav class="card-footer blockquote-footer fixed-bottom">-->
-<!--        position-relative-->
+    <nav th:class="${#httpServletRequest.requestURI}=='/'?'card-footer blockquote-footer fixed-bottom':'card-footer blockquote-footer'"
+         class="card-footer blockquote-footer">
     © 2021 Project by Slava Basov
     </nav>
 </div>

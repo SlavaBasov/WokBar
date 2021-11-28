@@ -37,15 +37,15 @@
                     <li class="nav-item">
 
                         <div>
-                            <a th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/menu')} ? 'nav-link active' : 'nav-link'" th:href="@{/menu/wok}" th:text="Menu">Menu</a>
+                            <a th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/menu')} ? 'nav-link active' : 'nav-link'" th:href="@{/menu/wok}" th:text="#{menu.title}">Menu</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div th:if="${#httpServletRequest.requestURI}=='/info'">
-                            <a class="nav-link active" th:href="@{/info}" th:text="#{header.info.title}">Info</a>
+                        <div th:if="${#httpServletRequest.requestURI}=='/contacts'">
+                            <a class="nav-link active" th:href="@{/contacts}" th:text="#{header.contacts.title}">Contacts</a>
                         </div>
-                        <div th:if="${#httpServletRequest.requestURI}!='/info'">
-                            <a class="nav-link" th:href="@{/info}" th:text="#{header.info.title}">Info</a>
+                        <div th:if="${#httpServletRequest.requestURI}!='/contacts'">
+                            <a class="nav-link" th:href="@{/contacts}" th:text="#{header.contacts.title}">Contacts</a>
                         </div>
                     </li>
                 </ul>
@@ -90,7 +90,11 @@
                                 aria-labelledby="dropdownMenuButton2">
                                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                                     <a class="nav-link active" th:href="@{/admin/categories}"
-                                       th:text="Categories">Categories</a>
+                                       th:text="#{header.categories.title}">Categories</a>
+                                </li>
+                                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                                    <a class="nav-link active" th:href="@{/admin/orders}"
+                                       th:text="#{header.orders.title}">Orders</a>
                                 </li>
                                 <li class="nav-item" sec:authorize="hasRole('USER')">
                                     <a class="nav-link active" th:href="@{/user}"
@@ -98,7 +102,7 @@
                                 </li>
                                 <li class="nav-item" sec:authorize="hasRole('USER')">
                                     <a class="nav-link active" th:href="@{/cart}"
-                                       th:text="Cart">Cart</a>
+                                       th:text="#{header.cart.title}">Cart</a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a href="/signout" class="dropdown-item btn btn-warning text-nowrap"

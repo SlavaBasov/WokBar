@@ -19,35 +19,35 @@
   <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 220px; position: fixed;">
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a th:if="${#httpServletRequest.requestURI}=='/menu/wok'" th:href="@{/menu/wok}" class="nav-link active" aria-current="page">
+        <a th:if="${#httpServletRequest.requestURI}=='/menu/wok'" th:href="@{/menu/wok}" class="nav-link active" aria-current="page" th:text="#{menu.wok.title}">
           <svg class="bi me-2" width="16" height="16"></svg>Wok
         </a>
-        <a th:if="${#httpServletRequest.requestURI}!='/menu/wok'" th:href="@{/menu/wok}" class="nav-link text-white" aria-current="page">
+        <a th:if="${#httpServletRequest.requestURI}!='/menu/wok'" th:href="@{/menu/wok}" class="nav-link text-white" aria-current="page" th:text="#{menu.wok.title}">
           <svg class="bi me-2" width="16" height="16"></svg>Wok
         </a>
       </li>
       <li>
-        <a th:if="${#httpServletRequest.requestURI}=='/menu/beverages'" th:href="@{/menu/beverages}" class="nav-link active" aria-current="page">
+        <a th:if="${#httpServletRequest.requestURI}=='/menu/beverages'" th:href="@{/menu/beverages}" class="nav-link active" aria-current="page" th:text="#{menu.beverages.title}">
           <svg class="bi me-2" width="16" height="16"></svg>Beverages
         </a>
-        <a th:if="${#httpServletRequest.requestURI}!='/menu/beverages'" th:href="@{/menu/beverages}" class="nav-link text-white" aria-current="page">
+        <a th:if="${#httpServletRequest.requestURI}!='/menu/beverages'" th:href="@{/menu/beverages}" class="nav-link text-white" aria-current="page" th:text="#{menu.beverages.title}">
           <svg class="bi me-2" width="16" height="16"></svg>Beverages
         </a>
       </li>
       <li>
-        <a th:if="${#httpServletRequest.requestURI}=='/menu/souses'" th:href="@{/menu/souses}" class="nav-link active" aria-current="page">
+        <a th:if="${#httpServletRequest.requestURI}=='/menu/souses'" th:href="@{/menu/souses}" class="nav-link active" aria-current="page" th:text="#{menu.souses.title}">
           <svg class="bi me-2" width="16" height="16"></svg>Souses
         </a>
-        <a th:if="${#httpServletRequest.requestURI}!='/menu/souses'" th:href="@{/menu/souses}" class="nav-link text-white" aria-current="page">
+        <a th:if="${#httpServletRequest.requestURI}!='/menu/souses'" th:href="@{/menu/souses}" class="nav-link text-white" aria-current="page" th:text="#{menu.souses.title}">
           <svg class="bi me-2" width="16" height="16"></svg>Souses
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#grid"></use>
-          </svg>
-          Other
+        <a th:if="${#httpServletRequest.requestURI}=='/menu/other'" th:href="@{/menu/other}" class="nav-link active" aria-current="page" th:text="#{menu.other.title}">
+          <svg class="bi me-2" width="16" height="16"></svg>Other
+        </a>
+        <a th:if="${#httpServletRequest.requestURI}!='/menu/other'" th:href="@{/menu/other}" class="nav-link text-white" aria-current="page"  th:text="#{menu.other.title}">
+          <svg class="bi me-2" width="16" height="16"></svg>Other
         </a>
       </li>
     </ul>

@@ -52,6 +52,15 @@ public class ShoppingCart {
 
     }
 
+    public boolean deleteAllLineItems(){
+        if(lineItems.isEmpty()){
+            return false;
+        }
+        lineItems.clear();
+        subTotalCost=0;
+        return true;
+    }
+
 
     public boolean subtractQuantity(ShoppingCartLineItem lineItem) {
         Long productId = lineItem.getProduct().getId();
