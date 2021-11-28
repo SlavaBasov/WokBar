@@ -47,7 +47,8 @@
 
                                         </div>
                                         <div class="col-6">
-                                            <a href="#" class="btn btn-primary">Add to basket</a>
+                                            <a th:href="@{${#httpServletRequest.requestURI}+'/add_to_basket'+__${product.id}__}" class="btn btn-primary">Add to basket</a>
+<!--                                            <a th:href="@{'/menu/add_to_basket'+__${product.id}__+__${#httpServletRequest.requestURI}__}" class="btn btn-primary">Add to basket</a>-->
                                         </div>
                                     </div>
                                 </div>
