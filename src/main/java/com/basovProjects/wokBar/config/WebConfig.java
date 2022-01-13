@@ -74,15 +74,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(getLocaleInterceptor());
     }
 
-    //##############----VIEW SETTINGS---------################
-    //############ FOR JSP
-
-    //    @Bean
-//    public InternalResourceViewResolver viewResolver(){
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/view/");
-//        resolver.setSuffix(".jsp");
-//        return resolver;
-//    }
-
 }

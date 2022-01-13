@@ -26,7 +26,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
         encodingFilter.setEncoding("UTF-8");
-        //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/filter/CharacterEncodingFilter.html
         encodingFilter.setForceEncoding(true);
         return new Filter[] {encodingFilter};
     }
