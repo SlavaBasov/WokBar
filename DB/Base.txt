@@ -1,0 +1,62 @@
+insert into wok_bar.roles (id, name) values (1, 'ROLE_USER');
+insert into wok_bar.roles (id, name) values (2, 'ROLE_ADMIN');
+
+insert into wok_bar.users (id, password, phone_number, username) values (3, '$2a$10$a/Oyx0xkobeU6qg6Mv89XuKroEfSFNeBXA81hdH5fswN8pTRyzOWi', '+375297897898', 'user1');
+insert into wok_bar.users (id, password, phone_number, username) values (4, '$2a$10$OIXSYJc4/XYjhFKPsaO5jeVcKZItlYgHfWTNlC6LUSthNS1JrgvD2', '+375295555555', 'admin');
+insert into wok_bar.users (id, password, phone_number, username) values (5, '$2a$10$neLsuziCrDu.kiD00dNV5OBIY2LJKXIRoLBSn5r.ac0Avi3EpKrAy', '+375297309182', 'slavabasov');
+
+insert into wok_bar.users_roles (User_id, roles_id) values (3, 1);
+insert into wok_bar.users_roles (User_id, roles_id) values (5, 1);
+insert into wok_bar.users_roles (User_id, roles_id) values (4, 2);
+
+insert into wok_bar.languages (id, name) values ('en', 'English');
+insert into wok_bar.languages (id, name) values ('ru', 'Russian');
+
+insert into wok_bar.categories (id, name) values (2, 'Beverages');
+insert into wok_bar.categories (id, name) values (3, 'Sauses');
+insert into wok_bar.categories (id, name) values (1, 'Wok');
+
+insert into wok_bar.category_translate (id, name, category_id, language_id) values (1, 'Noodles', 1, 'en');
+insert into wok_bar.category_translate (id, name, category_id, language_id) values (2, 'Вок', 1, 'ru');
+insert into wok_bar.category_translate (id, name, category_id, language_id) values (3, 'Beverages', 2, 'en');
+insert into wok_bar.category_translate (id, name, category_id, language_id) values (4, 'Напитки', 2, 'ru');
+insert into wok_bar.category_translate (id, name, category_id, language_id) values (5, 'Sauses', 3, 'en');
+insert into wok_bar.category_translate (id, name, category_id, language_id) values (6, 'Соусы', 3, 'ru');
+
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (1, '0.5 л', '/resources/images/menu/beverages/mors_chernaya_smorodina.png', 'Морс из черной смородины', 2.5, 2, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (2, '0.5 л', '/resources/images/menu/beverages/mors_klukva.png', 'Морс клюквенный', 2.5, 2, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (3, '0.5 л', '/resources/images/menu/beverages/cola.png', 'Coca-cola', 1.5, 2, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (17, 'лапша удон, креветка тигровая, шампиньоны, томаты черри, перец болгарский, том ям соус, кинза 330 г', '/resources/images/menu/wok/tom_yam_s_krevetkami.png', 'Wok Том ям с креветкой', 13, 1, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (18, 'лапша удон, капуста, морковь, перец болгарский, лук репчатый, том кха соус, цыпленок 360 г
+', '/resources/images/menu/wok/tom_kha_s_ciplenkom.png', 'Wok Том кха с цыпленком', 10.5, 1, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (19, 'лапша удон, говядина, капуста, морковь, перец болгарский, томаты черри, фасоль стручковая, лук репчатый, сальса соус, перец чили 410 г', '/resources/images/menu/wok/salsa.png', 'Wok Сальса', 11.5, 1, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (20, 'рис, цыпленок, морковь, перец болгарский, кукуруза консервированная, лук репчатый, карри соус 380 г', '/resources/images/menu/wok/karri_s_risom.png', 'Wok Карри с рисом', 10, 1, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (21, 'лапша удон, цыпленок, шампиньоны, капуста, перец болгарский, лук репчатый, огурец, морковь, терияки соус, кунжут 415 г', '/resources/images/menu/wok/classic.png', 'Wok классический', 10, 1, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (23, '30 г', '/resources/images/menu/souses/teriyaki.png', 'Терияки соус', 1, 3, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (24, '40 г', '/resources/images/menu/souses/soeviy.png', 'Соевый соус', 1, 3, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (25, '30 г', '/resources/images/menu/souses/spaisy.png', 'Спайси соус', 1, 3, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (26, '30 г', '/resources/images/menu/souses/orehoviy.png', 'Ореховый соус', 1, 3, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (27, 'Чай Fuze Tea зеленый чай манго-ромашка, 0.5л', '/resources/images/menu/beverages/fuze_tea_zeleniy_s_romashkoy.png', 'Чай Fuze Tea зеленый чай ', 1.5, 2, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (28, 'С доставкой, без доставки, 0.2л', '/resources/images/menu/beverages/tea.png', 'Чай', 1, 2, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (29, '30 г', '/resources/images/menu/souses/shef.png', 'Шеф соус', 1, 3, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (30, '1 г', '/resources/images/menu/other/palochki2.png', 'Пара бамбуковых палочек', 0.5, 4, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (31, '40 г', '/resources/images/menu/other/vasabi.png', 'Васаби', 1, 4, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (32, '30 г', '/resources/images/menu/other/imbir.png', 'Имбирь', 1, 4, null);
+insert into wok_bar.products (id, description, image_url, name, price, category_id, productsByName_KEY) values (34, 'Просто лапшичка мммм', 'https://pic.mysku-st.ru/uploads/pictures/01/15/29/2018/10/07/0ef9fa.jpg', 'Лапшичка', 10, 1, null);
+
+insert into wok_bar.orders (id, total_price, date, time, user_id, status) values (9, 26, '2021-11-29', '00:42:37', 3, 'Completed');
+insert into wok_bar.orders (id, total_price, date, time, user_id, status) values (11, 27.5, '2021-11-29', '00:51:11', 3, 'Paid');
+
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (21, 1, 9, 17);
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (22, 1, 9, 18);
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (23, 1, 9, 23);
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (24, 1, 9, 24);
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (25, 1, 9, 30);
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (31, 1, 11, 17);
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (32, 1, 11, 18);
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (33, 1, 11, 2);
+insert into wok_bar.line_item (id, quantity, order_id, product_id) values (34, 1, 11, 3);
+
+
+
+
