@@ -35,4 +35,9 @@ table creation script -
 **Login / password to access the test user account:**
 >login = user1; password = user1.
 
-Screenshots
+Screenshots:
+![screenshot1.jpg](src/main/resources/pictures/readme/screenshot1.jpg)
+![screenshot2.jpg](src/main/resources/pictures/readme/screenshot2.jpg)
+![screenshot3.jpg](src/main/resources/pictures/readme/screenshot3.jpg)
+![screenshot4.jpg](src/main/resources/pictures/readme/screenshot4.jpg)
+![screenshot5.jpg](src/main/resources/pictures/readme/screenshot5.jpg)
