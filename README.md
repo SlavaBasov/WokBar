@@ -1,8 +1,6 @@
-#Wok-Bar
+# Wok-Bar
 
 *Graduation project of the TechMeSkills courses.*
-
-#Wok-Bar
 
 Also my first web-application with spring framework.
 
