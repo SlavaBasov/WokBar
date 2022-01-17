@@ -17,23 +17,24 @@ public class WebServiceLogger {
 
     private final Logger log = LogManager.getLogger(this.getClass());
 
-//    @Pointcut("execution(* com.basovProjects.wokBar.controller..*(..)) || " +
-//              "execution(* com.basovProjects.wokBar.service.impl.*.*(..))")
-//    public void controllerAndServicesMethodsExecution() {
-//    }
-//
-//    @Around("controllerAndServicesMethodsExecution()")
-//    public Object logWebServiceCall(ProceedingJoinPoint thisJoinPoint) {
-//        String methodName = thisJoinPoint.getSignature().getName();
-//        Object[] methodArgs = thisJoinPoint.getArgs();
-//        log.debug(thisJoinPoint.getTarget().getClass().getName() +  " class | " + methodName + " method entered | with args: " + Arrays.toString(methodArgs));
-//        try {
-//            Object result = thisJoinPoint.proceed();
-//            log.debug(thisJoinPoint.getTarget().getClass().getName() +  " class | " + methodName + " method entered | returns " + result);
-//            return result;
-//        } catch (Throwable ex) {
-//            log.error("Error in " + thisJoinPoint.getTarget().getClass().getName() +  " class | " + methodName + " method | with message: " + ex.getMessage());
-//            return new Object();
-//        }
-//    }
+    @Pointcut("execution(* com.basovProjects.wokBar.controller..*(..))" +
+            "execution(* com.basovProjects.wokBar.service.impl.UserServiceImpl.*(..))"+
+            "execution(* com.basovProjects.wokBar.service.impl.OrderServiceImpl.*(..))")
+    public void controllerAndServicesMethodsExecution() {
+    }
+
+    @Around("controllerAndServicesMethodsExecution()")
+    public Object logWebServiceCall(ProceedingJoinPoint thisJoinPoint) {
+        String methodName = thisJoinPoint.getSignature().getName();
+        Object[] methodArgs = thisJoinPoint.getArgs();
+        log.debug(thisJoinPoint.getTarget().getClass().getName() +  " class | " + methodName + " method entered | with args: " + Arrays.toString(methodArgs));
+        try {
+            Object result = thisJoinPoint.proceed();
+            log.debug(thisJoinPoint.getTarget().getClass().getName() +  " class | " + methodName + " method entered | returns " + result);
+            return result;
+        } catch (Throwable ex) {
+            log.error("Error in " + thisJoinPoint.getTarget().getClass().getName() +  " class | " + methodName + " method | with message: " + ex.getMessage());
+            return new Object();
+        }
+    }
 }

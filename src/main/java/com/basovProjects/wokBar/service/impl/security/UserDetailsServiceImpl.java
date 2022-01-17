@@ -32,9 +32,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throws UsernameNotFoundException, DataAccessException {
 
         username = username.toLowerCase();
-//        if (log.isDebugEnabled()) {
-//            log.debug("Security verification for user '" + login + "'");
-//        }
         User user;
         try {
             user = userRepository.findByUsername(username);
@@ -42,7 +39,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User '" + username
                     + "' could not be found.");
         }
-//        user.setLastAccessDate(Calendar.getInstance().getTime());
 
         Set<Role> roles = user.getRoles();
 
@@ -51,51 +47,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
-//        return new org.springframework.security.core.userdetails.User(username,
-//                user.getPassword(), user.isEnabled(), true, true, true,
-//                authorities);
-
         return new org.springframework.security.core.userdetails.User(username,
                 user.getPassword(), user.isEnabled(), true, true, true,
                 authorities);
 
     }
-
-//    private List<GrantedAuthority> buildUserAuthority(String role) {
-//        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-//        setAuths.add(new SimpleGrantedAuthority(role));
-//        List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(
-//                setAuths);
-//        return result;
-//    }
-//
-//    private User buildUserForAuthentication(User user,
-//                                            List<GrantedAuthority> authorities) {
-//        User newUser = new User(user.getUsername(), user.getPassword(),
-//                user.getPhoneNumber());
-//        Set<Role> roles = new HashSet<>();
-//        Collections.addAll(roles, (Role) authorities);
-//        user.setRoles(roles);
-//        return newUser;
-//    }
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    public UserDetails loadUserByUsername(String username)
-//            throws UsernameNotFoundException {
-//        User user = userRepository.findByUsername(username);
-//        List<GrantedAuthority> authorities = buildUserAuthority("Role");
-//        return buildUserForAuthentication(user, authorities);
-//    }
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = userRepository.findByUsername(username);
-//
-//        if (user == null) {
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//
-//        return user;
-//    }
 }

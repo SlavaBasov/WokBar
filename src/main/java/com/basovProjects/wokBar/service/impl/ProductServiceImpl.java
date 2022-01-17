@@ -48,11 +48,6 @@ public class ProductServiceImpl implements ProductService<Long, Product> {
         if(!foundProduct.getName().equals(product.getName()) && isNameOfProductExist(product.getName())){
             return false;
         }
-//        if(isNameOfProductExist(product.getName())){
-//            if(!product.getName().equals(foundProduct.getName())) {
-//                return false;
-//            }
-//        }
         foundProduct.setName(product.getName());
         foundProduct.setCategory(categoryService.findById(product.getCategory().getId()));
         foundProduct.setDescription(product.getDescription());
